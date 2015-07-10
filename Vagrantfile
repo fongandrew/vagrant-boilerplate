@@ -10,9 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  # config.vm.box = "ubuntu/trusty64"
-  # This box has NFS built in already
-  config.vm.box = "cmad/trusty-server64"
+  config.vm.box = "ubuntu/trusty64"
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -35,6 +33,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # control machine without having to copy keys over to virtual machine
   config.ssh.forward_agent = true
 
+  # Disable synced folder (use unison instead for better performance)
+  config.vm.synced_folder '.', '/vagrant', disabled: true
+
+  # Provison files directly (since we've disabled shared folders)
+  config.vm.provision :file, source: "provisioning",
+                             destination: "/home/vagrant/provisioning"
+
   # Install requirements directly with shell script
-  config.vm.provision :shell, :path => "bootstrap.sh"
+  config.vm.provision :shell, :path => "bin/bootstrap.sh"
 end

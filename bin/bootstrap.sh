@@ -23,8 +23,13 @@ echo "Defaults env_keep+=SSH_AUTH_SOCK" >> /etc/sudoers
 chsh -s /bin/bash vagrant
 
 # Install our public key
-echo /vagrant/provisioning/public_key >> /home/vagrant/.ssh/authorized_keys
+echo /home/vagrant/provisioning/public_key >> /home/vagrant/.ssh/authorized_keys
 
 # Ensure vagrant user has access to nicer color scheme
-cp /vagrant/provisioning/.bash_prompt /home/vagrant/.bash_prompt
+cp /home/vagrant/provisioning/.bash_prompt /home/vagrant/.bash_prompt
 echo "source ~/.bash_prompt" >> /home/vagrant/.bashrc
+
+# Install Unison binaries
+cp /home/vagrant/provisioning/unison-2.48.3-2-x86_64.pkg.tar.xz /
+cd /
+tar xf unison-2.48.3-2-x86_64.pkg.tar.xz
