@@ -23,7 +23,7 @@ echo "Defaults env_keep+=SSH_AUTH_SOCK" >> /etc/sudoers
 chsh -s /bin/bash vagrant
 
 # Install our public key
-echo /home/vagrant/provisioning/public_key >> /home/vagrant/.ssh/authorized_keys
+cat /home/vagrant/provisioning/public_key >> /home/vagrant/.ssh/authorized_keys
 
 # Ensure vagrant user has access to nicer color scheme
 cp /home/vagrant/provisioning/.bash_prompt /home/vagrant/.bash_prompt
