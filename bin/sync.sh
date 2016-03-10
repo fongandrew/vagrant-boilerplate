@@ -29,27 +29,26 @@ PROFILE="root = $HOSTPATH
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Add ignorearchives option if first run
-if [ ! -f $DIR/../.vagrant/init-complete.flag ]; then
+if [ ! -f "$DIR/../.vagrant/init-complete.flag" ]; then
   PROFILE="$PROFILE\nignorearchives = true"
-  touch $DIR/../.vagrant/init-complete.flag
+  touch "$DIR/../.vagrant/init-complete.flag"
 fi
 
 # Write profile out
-if [ -z ${USERPROFILE} ]; then # Unix
+if [ -z "${USERPROFILE}" ]; then # Unix
   PROFILEDIR="$HOME/.unison/"
   PROFILEPATH="$HOME/.unison/$PROFILENAME.prf"
 else # Windows
   PROFILEDIR=$(cygpath -aw "$USERPROFILE\\.unison")
   PROFILEPATH=$(cygpath -aw "$USERPROFILE\\.unison\\$PROFILENAME.prf")
 fi
-mkdir -p $PROFILEDIR
-echo -e $PROFILE > $PROFILEPATH
+mkdir -p "$PROFILEDIR"
+echo -e $PROFILE > "$PROFILEPATH"
 
 # Ensure guestpath exists (Unison chokes on this sometimes if it doesn't)
-$DIR/ssh.sh "mkdir -p $GUESTPATH"
+"$DIR/ssh.sh" "mkdir -p \"$GUESTPATH\""
 
 # unison.exe (and unision-fsmonitor.exe) should be in same directory as
 # this script
 UNISONEXE="$DIR/unison.exe"
-
-$UNISONEXE $PROFILENAME
+"$UNISONEXE" "$PROFILENAME"
