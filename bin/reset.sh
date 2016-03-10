@@ -8,6 +8,6 @@ sed -i '/\[localhost\]:8022/d' ~/.ssh/known_hosts
 
 # Remove the flag we set about initialization being done
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-if [ -f $DIR/../.vagrant/init-complete.flag ]; then
-  rm $DIR/../.vagrant/init-complete.flag
+if [ -f "$DIR/../.vagrant/init-complete.flag" ]; then
+  rm "$DIR/../.vagrant/init-complete.flag"
 fi
